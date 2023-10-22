@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+		<title>calculator</title>
+		<link href="call.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .button{
+				padding: 10px;
+				font-size: 20px;
+                cursor: pointer;
+			}
+		#buttons{
+                display: grid;
+                grid-template-columns: repeat(7, 5fr);
+			}
+		#text{
+				width: 350px;
+				height: 30px;
+				font-size: 30px;
+				border-radius: 10px;
+				text-align: right;
+				margin-bottom: 10px;
+			}
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <div id="head"><h3>Welcome to WDZY Calculator</h3></div>
+		<p>Show:</p>
+		<div id="show"><input type="text" name="text" id="text"></div>
+        <div id="buttons">
+            <div class="button" onclick="display(1)">1</div>
+            <div class="button" onclick="display(2)">2</div>
+            <div class="button" onclick="display(3)">3</div>
+            <div class="button" onclick="display('+')">+</div>
+            <div class="button" onclick="display('-')">-</div>
+            <div class="button" onclick="display('%')">%</div>
+            <div class="button" onclick="Ln()">Ln</div>
+            <div class="button" onclick="display(4)">4</div>
+            <div class="button" onclick="display(5)">5</div>
+            <div class="button" onclick="display(6)">6</div>
+            <div class="button" onclick="display('*')">*</div>
+            <div class="button" onclick="display('/')">/</div>
+            <div class="button" onclick="Sin()">Sin</div>
+            <div class="button" onclick="Sqrt()">Sqrt</div>
+            <div class="button" onclick="display(7)">7</div>
+            <div class="button" onclick="display(8)">8</div>
+            <div class="button" onclick="display(9)">9</div>
+            <div class="button" onclick="display('(')">(</div>
+            <div class="button" onclick="display(')')">)</div>
+            <div class="button" onclick="Cos()">Cos</div>
+            <div class="button" onclick="power()">Pow</div>
+            <div class="button" onclick="display('.')">.</div>
+            <div class="button" onclick="display(0)">0</div>
+            <div class="button" onclick="reset()">c</div>
+            <div class="button" onclick="back()">←</div>
+            <div class="button" onclick="equals()">=</div>
+            <div class="button" onclick="Tan()">Tan</div>
+        </div>
+    </div>
+    <div id="history">
+        <h2>history</h2>
+        <ul id="historyList"></ul>
+    </div>
+    <script>
+        function $(id){return document.getElementById(id);}
+var str;
+var result;
+var historyList = document.getElementById("historyList");
+var calculationHistory = [];
+function display(str0)	//显示到文本框
+{
+	str = document.getElementById("text");
+	str.value = str.value + str0;
+}
+function equals(){
+
+    try{
+	str = document.getElementById("text");
+	result = eval(str.value);
+    calculationHistory.push(str.value + " = " + result);
+	str.value = result;
+	
+    updateHistoryList();
+	}catch{
+		document.getElementById("text")="error"
+	}
+}
+function back()		//退格
+{
+	str = document.getElementById("text");
+	str.value = str.value.substring(0,str.value.length-1);
+}
+function reset()	//清除
+{
+	str = document.getElementById("text");
+	str.value = "";
+}
+function Cos() {
+	
+	try{
+	var angle;
+	var view;
+	angle = document.getElementById("text").value;
+	if (str == '') alert('Error: Input Required');
+	else {view=Math.cos(angle/180*Math.PI)
+	view=view.toFixed(2);}
+	document.getElementById("text").value = view;
+	calculationHistory.push("cos" + angle + " = " + view);
+	updateHistoryList();
+	}catch{
+		document.getElementById("text")="error"
+	}
+}
+function Sin() {
+	var angle;
+	var view;
+	angle = document.getElementById("text").value;
+	if (str == '') alert('Error: Input Required');
+	else {view=Math.sin(angle/180*Math.PI)
+	view=view.toFixed(2);}
+	document.getElementById("text").value = view;
+	calculationHistory.push("sin"+angle+"="+view);
+	updateHistoryList();
+	}
+function Sqrt() {
+		str = document.getElementById("text").value;
+		if (str == '') alert('Error: Input Required');
+		else document.getElementById("text").value = Math.sqrt(str);
+		calculationHistory.push("sqrt"+str+"="+ Math.sqrt(str));
+		updateHistoryList();
+	}
+function Ln() {
+	str = document.getElementById("text").value;
+	if (str == '') alert('Error: Input Required');
+	else document.getElementById("text").value = Math.log(str);
+	calculationHistory.push("sqrt"+str+"="+ Math.log(str));
+	updateHistoryList();
+	}
+	
+function Tan() {
+	var angle;
+	var view;
+	angle = document.getElementById("text").value;
+	if (str == '') alert('Error: Input Required');
+	else {view=Math.tan(angle/180*Math.PI)
+	view=view.toFixed(2);}
+	document.getElementById("text").value = view;
+	calculationHistory.push("tan"+angle+"="+view);
+	updateHistoryList();
+	}
+function power() {
+	str = document.getElementById("text").value;
+	if (str == '') alert('Error: Input Required');
+	else document.getElementById("text").value = Math.pow(str,2);
+	calculationHistory.push("sqrt"+str+"="+ Math.pow(str,2));
+		updateHistoryList();
+}
+function updateHistoryList() {
+	historyList.innerHTML = "";
+	for (var item of calculationHistory) {
+		var li = document.createElement("li");
+		li.textContent = item;
+		historyList.appendChild(li);
+	}
+}
+    </script>
+</body>
+</html>

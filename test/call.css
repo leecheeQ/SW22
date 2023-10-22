@@ -1,0 +1,11 @@
+body{
+    background-image: url(./wdzy.jpg);
+}
+h3{
+    font-size: 25px;
+    color:  rgb(225, 77, 168);
+}
+
+#buttons input:hover{
+    background: lightgray;
+}
